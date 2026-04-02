@@ -10,7 +10,7 @@ const test = base.extend<MyFixtures>({
   }
 });
 
-test('GET - fetch single user', async ({ apiContext }) => {
+test('GET - fetch single user @smoke @api', async ({ apiContext }) => {
   const response = await apiContext.get('https://jsonplaceholder.typicode.com/users/1');
 
   expect(response.status()).toBe(200);
@@ -22,7 +22,7 @@ test('GET - fetch single user', async ({ apiContext }) => {
   console.log('User fetched:', body.name);
 });
 
-test('POST - create new post', async ({ apiContext }) => {
+test('POST - create new post @api', async ({ apiContext }) => {
   const response = await apiContext.post('https://jsonplaceholder.typicode.com/posts', {
     data: {
       title: 'My first API test',
