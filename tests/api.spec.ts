@@ -1,25 +1,33 @@
-import { test, expect, request } from '@playwright/test';
+import { test as base, expect, APIRequestContext } from '@playwright/test';
 
-test('GET - fetch single user', async () => {
-  const apiContext = await request.newContext();
+type MyFixtures = {
+  apiContext: APIRequestContext;
+};
+
+const test = base.extend<MyFixtures>({
+  apiContext: async ({ request }, use) => {
+    await use(request);
+  }
+});
+
+test('GET - fetch single user', async ({ apiContext }) => {
   const response = await apiContext.get('https://jsonplaceholder.typicode.com/users/1');
-  
+
   expect(response.status()).toBe(200);
-  
+
   const body = await response.json();
   expect(body.id).toBe(1);
   expect(body.name).toBeTruthy();
-  
+
   console.log('User fetched:', body.name);
 });
 
-test('POST - create new post', async () => {
-  const apiContext = await request.newContext();
+test('POST - create new post', async ({ apiContext }) => {
   const response = await apiContext.post('https://jsonplaceholder.typicode.com/posts', {
     data: {
       title: 'My first API test',
       body: 'Playwright API testing is fast',
-      userId: 1
+      userId: 1,
     }
   });
 
