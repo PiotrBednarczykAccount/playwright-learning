@@ -11,6 +11,13 @@ test.describe('Google Search', () => {
     await googlePage.acceptCookies();
   });
 
+  test.afterEach(async ({ page }, testInfo) => {
+  if (testInfo.status !== 'passed') {
+    await page.screenshot({ path: `test-results/failed-${testInfo.title}.png` });
+  }
+});
+
+
   test('page has title @smoke', async ({ page }) => {
     await expect(page).toHaveTitle(/Google/);
   });
