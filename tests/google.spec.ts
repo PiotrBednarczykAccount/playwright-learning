@@ -1,17 +1,23 @@
-import {test, expect} from '@playwright/test';
+import { test, expect } from '@playwright/test';
 import { GooglePage } from '../pages/GooglePage';
 
-test('google page has title @smoke', async ({ page }) => {
-    const googlePage = new GooglePage(page);
-    await googlePage.open();
-    await expect(page).toHaveTitle(/Google/);
-});
+test.describe('Google Search', () => {
 
-test('google search works @regression', async ({ page }) => {
-    const googlePage = new GooglePage(page);
+  let googlePage: GooglePage;
+
+  test.beforeEach(async ({ page }) => {
+    googlePage = new GooglePage(page);
     await googlePage.open();
     await googlePage.acceptCookies();
+  });
+
+  test('page has title @smoke', async ({ page }) => {
+    await expect(page).toHaveTitle(/Google/);
+  });
+
+  test('search works @regression', async ({ page }) => {
     await googlePage.search('Playwright');
     await expect(page).toHaveTitle(/Playwright/);
+  });
+
 });
-    
