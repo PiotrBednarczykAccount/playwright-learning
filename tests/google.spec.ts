@@ -22,13 +22,19 @@ test.describe('Google Search', () => {
     await expect(page).toHaveTitle(/Google/);
   });
 
-  test('search works @regression', async ({ page }) => {
+  const searchQueries = ['Playwright', 'Selenium', 'Cypress'];
+
+for (const query of searchQueries) {
+  test(`search works for ${query} @regression`, async ({ page }) => {
     await test.step('Type search query', async () => {
-    await googlePage.search('Playwright');
+      await googlePage.search(query);
     });
 
-    await test.step('Verify result page title contains search quesry', async () => {
-      await expect(page).toHaveTitle(/Playwright/);
+    await test.step('Verify result page title contains search query', async () => {
+      await expect(page).toHaveTitle(new RegExp(query));
     });
   });
+}
+
+
 });
