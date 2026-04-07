@@ -23,8 +23,12 @@ test.describe('Google Search', () => {
   });
 
   test('search works @regression', async ({ page }) => {
+    await test.step('Type search query', async () => {
     await googlePage.search('Playwright');
-    await expect(page).toHaveTitle(/Playwright/);
-  });
+    });
 
+    await test.step('Verify result page title contains search quesry', async () => {
+      await expect(page).toHaveTitle(/Playwright/);
+    });
+  });
 });
