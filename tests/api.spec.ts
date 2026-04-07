@@ -37,3 +37,20 @@ test('POST - create new post @api', async ({ apiContext }) => {
   expect(body.title).toBe('My first API test');
   console.log('Post created with id:', body.id);
 });
+
+test('GET - mock user response @api', async ({ page }) => {
+  await page.route('**/users/1', async route => {
+    await route.fulfill({
+      status: 200,
+      body: JSON.stringify({ id: 1, name: 'Mocked User' })
+    });
+  });
+
+  await page.goto('https://jsonplaceholder.typicode.com/users/1');
+
+  const body = await page.evaluate(() => JSON.parse(document.body.innerText));
+  expect(body.name).toBe('Mocked User');
+
+  console.log('User fetched:', body.name);
+});
+  
