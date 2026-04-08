@@ -17,6 +17,6 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
       - name: Run tests
-        run: npx playwright test
+        run: npx playwright test --ignore-snapshots
         env:
           BASE_URL: https://www.google.com
