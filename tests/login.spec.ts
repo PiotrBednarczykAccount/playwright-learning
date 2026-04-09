@@ -10,7 +10,7 @@ test.describe('Login Page Tests', () => {
         });
 
         await test.step('Step 2: Login with valid credentials', async () => {
-            await loginPage.login('student', 'Password123');
+            await loginPage.login(process.env.LOGIN_USERNAME!, process.env.LOGIN_PASSWORD!);
         });
 
         await test.step('Step 3: Verify successful login', async () => {
