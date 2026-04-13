@@ -11,4 +11,8 @@ export class LoginPage extends BasePage{
     getSuccessMessage() {
         return this.page.getByText('Logged In Successfully')
     }
+
+    getErrorMessage() {
+        return this.page.locator('#error');
+    }
 }
