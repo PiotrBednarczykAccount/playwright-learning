@@ -1,16 +1,7 @@
-import { Page} from '@playwright/test';
+import {BasePage} from './BasePage'
 
-export class LoginPage{
-    page: Page;
-
-    constructor(page: Page){
-        this.page = page;
-    }
-
-    async navigate() {
-        await this.page.goto('https://practicetestautomation.com/practice-test-login/');
-    }
-
+export class LoginPage extends BasePage{
+    
     async login(username: string, password: string) {
         await this.page.getByLabel('Username').fill(username);
         await this.page.getByLabel('Password').fill(password);

@@ -6,7 +6,7 @@ test.describe('Login Page Tests', () => {
         const loginPage = new LoginPage(page);
 
         await test.step('Step 1: Navigate to login page', async () => {
-            await loginPage.navigate();
+            await loginPage.navigate('https://practicetestautomation.com/practice-test-login/');
         });
 
         await test.step('Step 2: Login with valid credentials', async () => {

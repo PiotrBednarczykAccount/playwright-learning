@@ -1,16 +1,9 @@
 import { Page} from '@playwright/test';
+import { BasePage } from './BasePage';
 
-export class GooglePage {
-    readonly page: Page;
-
-constructor (page: Page) {
-    this.page = page;
-}
-
-async open() {
-    await this.page.goto('/');
-}
-
+export class GooglePage extends BasePage {
+    
+    
 async acceptCookies() {
     const cookiePL = this.page.getByRole('button', { name: 'Zaakceptuj wszystko'});
     const cookieEN = this.page.getByRole('button', { name: 'Accept all'});

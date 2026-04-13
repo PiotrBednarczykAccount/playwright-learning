@@ -7,7 +7,7 @@ test.describe('Google Search', () => {
 
   test.beforeEach(async ({ page }) => {
     googlePage = new GooglePage(page);
-    await googlePage.open();
+    await googlePage.navigate('https://www.google.com');
     await googlePage.acceptCookies();
   });
 
