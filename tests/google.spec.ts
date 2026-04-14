@@ -18,14 +18,14 @@ test.describe('Google Search', () => {
 });
 
 
-  test('page has title @smoke', async ({ page }) => {
+  test('page has title', {tag:'@smoke'}, async ({ page }) => {
     await expect(page).toHaveTitle(/Google/);
   });
 
   const searchQueries = ['Playwright', 'Selenium', 'Cypress'];
 
 for (const query of searchQueries) {
-  test(`search works for ${query} @regression`, async ({ page }) => {
+  test(`search works for ${query}`, {tag: '@regression'}, async ({ page }) => {
     await test.step('Type search query', async () => {
       await googlePage.search(query);
     });

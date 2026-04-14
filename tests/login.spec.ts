@@ -2,7 +2,7 @@ import { LoginPage } from '../pages/LoginPage';
 import { test, expect } from '@playwright/test';
 
 test.describe('Positive tests', () => {
-    test('Should login successfully with valid credentials', async ({ page }) => {
+    test('Should login successfully with valid credentials', {tag: '@smoke'}, async ({ page }) => {
         const loginPage = new LoginPage(page);
 
         await test.step('Step 1: Navigate to login page', async () => {
@@ -20,7 +20,7 @@ test.describe('Positive tests', () => {
 });
 
 test.describe('Negative tests', () => {
-    test('Should show error for invalid username', async ({page}) => { 
+    test('Should show error for invalid username', {tag: '@negative'}, async ({page}) => { 
         const loginPage = new LoginPage(page);
 
         await test.step('Step 1: Navigate to login page', async () => {
@@ -36,7 +36,7 @@ test.describe('Negative tests', () => {
         });
     });
 
-    test('Should show error for invalid password', async ({page}) => {
+    test('Should show error for invalid password', {tag: '@negative'}, async ({page}) => {
         const loginPage = new LoginPage(page);
 
         await test.step('Step 1: Navigate to login page', async () => {
