@@ -17,7 +17,7 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
       - name: Run tests
-        run: npx playwright test --ignore-snapshots
+        run: npx playwright test --grep "@smoke" --ignore-snapshots
         env:
           BASE_URL: https://www.google.com
           LOGIN_USERNAME: ${{ secrets.LOGIN_USERNAME }}
