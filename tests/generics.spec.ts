@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test'
-import { getFirst } from '../utils/ArrayUtils';
-import { UserFactory} from '../factories/UserFactory';
-import { User} from '../builders/UserBuilder';
+import { getFirst, updateUser } from '../utils/ArrayUtils';
+import { UserFactory } from '../factories/UserFactory';
+import { User } from '../builders/UserBuilder';
 
 test('Should return first string from array', async () => {
     let result: string;
@@ -23,7 +23,7 @@ test('Should return first number from array', async () => {
     });
 });
 
-test('Should return first User object from array', async() => {
+test('Should return first User object from array', async () => {
     let result: User;
     await test.step('Get first element from User array', async () => {
         result = getFirst([UserFactory.createAdmin(), UserFactory.createGuest(), UserFactory.createPremium()])
@@ -31,4 +31,17 @@ test('Should return first User object from array', async() => {
     await test.step('Verify first element is admin user', async () => {
         expect(result.name).toBe('Admin User');
     });
-}); 
+});
+
+test('Should update user email while keeping other fields unchanged', async () => {
+    let admin = UserFactory.createAdmin();
+    await test.step('Update admin user email', async () => {
+        admin = updateUser(admin, { email: 'new@test.com' });
+    })
+    await test.step('Verify name remains unchanged', async () => {
+        expect(admin.name).toBe('Admin User');
+    });
+    await test.step('Verify email was updated', async () => {
+        expect(admin.email).toBe('new@test.com')
+    });
+});
