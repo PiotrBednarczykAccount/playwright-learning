@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test'
-import { getFirst, getPublicProfile, updateUser } from '../utils/ArrayUtils';
+import { freezeUser, getFirst, getPublicProfile, updateUser } from '../utils/ArrayUtils';
 import { UserFactory } from '../factories/UserFactory';
 import { User } from '../builders/UserBuilder';
 
@@ -57,5 +57,15 @@ test('Should return only public profile fields', async () => {
     });
     await test.step('Verify public profile email', async () => {
         expect(profile.email).toBe('admin@test.com');
+    });
+});
+
+test('Should return a readonly user that cannot be modified', async () => {
+    let frozen: Readonly<User>;
+    await test.step('Freeze admin user', async () => {
+        frozen = freezeUser(UserFactory.createAdmin());
+    });
+    await test.step('Verify frozen user name', async () => {
+        expect(frozen.name).toBe('Admin User');
     });
 });
