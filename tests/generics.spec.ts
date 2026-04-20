@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test'
-import { getFirst, updateUser } from '../utils/ArrayUtils';
+import { getFirst, getPublicProfile, updateUser } from '../utils/ArrayUtils';
 import { UserFactory } from '../factories/UserFactory';
 import { User } from '../builders/UserBuilder';
 
@@ -43,5 +43,19 @@ test('Should update user email while keeping other fields unchanged', async () =
     });
     await test.step('Verify email was updated', async () => {
         expect(admin.email).toBe('new@test.com')
+    });
+});
+
+test('Should return only public profile fields', async () => {
+    const admin = UserFactory.createAdmin();     // wejście
+    let profile: Pick<User, 'name' | 'email'>;
+    await test.step('Get public profile from admin user', async () => {
+        profile = getPublicProfile(admin);
+    });
+    await test.step('Verify public profile name', async () => {
+        expect(profile.name).toBe('Admin User');
+    });
+    await test.step('Verify public profile email', async () => {
+        expect(profile.email).toBe('admin@test.com');
     });
 });

@@ -8,3 +8,7 @@ export function getFirst<T>(arr: T[]): T {
 export function updateUser (user: User, changes: Partial<User>): User {
     return {...user, ...changes};
 }
+
+export function getPublicProfile(user: User): Pick<User, 'name' | 'email'> {
+    return {name: user.name, email: user.email}
+}
